@@ -1,0 +1,169 @@
+@font-face {
+  font-family: 'Atari';
+  src: url("assets/fonts/AtariClassic-gry3.ttf");
+}
+
+body {
+  user-select: none;
+}
+
+header {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  height: 70px;
+
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 20px;
+
+  box-sizing: border-box;
+  font-family: 'Atari';
+  color: #ff2c3b;
+  -webkit-text-stroke: 1px black;
+  background: #fff;
+}
+
+.title {
+  position: absolute;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
+.retro_btn {
+  font-family: 'Atari';
+  color: #ff2c3b;
+  -webkit-text-stroke: 1px black;
+
+  vertical-align: middle;
+  padding: 0.375rem 0.75rem;
+  line-height: 1.5;
+  background: white;
+  font-size: 15px;
+  font-weight: 400;
+  text-align: left;
+  border: 3px solid black !important;
+  box-shadow: 4px 4px black, 6px 7px white;
+
+  cursor: pointer;
+}
+
+.retro_btn:active {
+  background-color: white !important;
+  box-shadow: 0px 0px white;
+  transform: translateX(5px) translateY(2px);
+}
+
+/* footer */
+
+footer {
+  position: fixed;
+  bottom: 0;
+  width: 100%;
+  height: 30px;
+  text-align: center;
+
+  font-family: 'Atari';
+}
+
+footer a {
+  font-size: 15px;
+}
+
+/* Menu */
+
+#open_menu_btn {
+  font-size: 20px;
+}
+
+.popup {
+  display: flex;
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 100;
+  justify-content: center;
+  align-items: center;
+}
+
+.popup-content {
+  background-color: white;
+  padding: 20px;
+  position: relative;
+
+  width: 80%;
+  max-width: 300px;
+  min-height: 400px;
+
+  border: 3px solid black !important;
+  box-shadow: 4px 4px black;
+
+  text-align: center;
+  overflow-x: hidden;
+  overflow-y: scroll;
+}
+
+.menu_title {
+  font-family: 'Atari';
+  color: #ff2c3b;
+  -webkit-text-stroke: 1px black;
+  font-size: 30px;
+}
+
+.menu_btn {
+  margin-top: 10px;
+  min-width: 240px;
+  text-align: center;
+}
+
+.menu_references {
+  margin-top: 50px;
+  font-family: 'Atari';
+  font-size: 15px;;
+}
+
+.menu_references p {
+  line-height: 1.5;
+}
+
+.close-btn {
+  position: absolute;
+  top: 0px;
+  right: 15px;
+  font-size: 50px;
+  cursor: pointer;
+}
+
+.close-btn:hover {
+  color: #ff0000;
+}
+
+a:visited {
+  color: blue;
+}
+
+/* main */
+
+main {
+  margin-top: 60px;
+  padding-bottom: 70px;
+  height: calc(100dvh - 150px);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+#canvas {
+  width: calc(100dvw - 100px);
+  max-width: 800px;
+  height: 80vh;
+  display: block;
+  margin: 0 auto;
+  border: 3px solid black;
+  box-shadow: 4px 4px 0 black;
+}
