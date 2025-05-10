@@ -31,6 +31,10 @@ header {
   transform: translateX(-50%);
 }
 
+.score_counter {
+  margin-right: 20px;
+}
+
 .retro_btn {
   font-family: 'Atari';
   color: #ff2c3b;
@@ -142,6 +146,14 @@ footer a {
   color: #ff0000;
 }
 
+#menu_play_btn {
+  display: inline;
+}
+
+#menu_stop_btn {
+  display: none;
+}
+
 a:visited {
   color: blue;
 }
@@ -151,7 +163,7 @@ a:visited {
 main {
   margin-top: 60px;
   padding-bottom: 70px;
-  height: calc(100dvh - 150px);
+  height: calc(100dvh - 190px);
   display: flex;
   justify-content: center;
   align-items: center;

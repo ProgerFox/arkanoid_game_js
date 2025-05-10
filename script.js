@@ -1,11 +1,9 @@
-import { initMenu } from "./scripts/menu.js";
+import { Menu } from "./scripts/menu.js";
+import { GameField } from "./scripts/game.js";
 
 document.addEventListener('DOMContentLoaded', () => {
-  initMenu();
-  console.log('all components loaded');
+  Menu.initMenu();
+  GameField.game_init();
+
+  console.log('all components inited');
 });
-
-const canvas = document.getElementById('canvas');
-const ctx = canvas.getContext("2d");
-ctx.fillRect(0, 0, canvas.width, canvas.height);
-
