@@ -96,6 +96,8 @@ export const Game = {
       this.canvas.height / (window.devicePixelRatio || 1) - 80
     );
 
+    this.platform.speed = parseInt(this.canvas.style.width) / 100;
+
     document.addEventListener("keydown", (e) => {
       if (e.key === "Right" || e.key === "ArrowRight" || e.key === "d") {
         this.platform.dx = this.platform.speed;
@@ -149,8 +151,8 @@ export const Game = {
   initBall() {
     this.ball.x = this.platform.x + this.platform.width / 2;
     this.ball.y = this.platform.y - this.ball.radius - 5;
-    this.ball.dx = 3 * (Math.random() > 0.5 ? 1 : -1);
-    this.ball.dy = -3;
+    this.ball.dx = parseInt(this.canvas.style.width) / 150 * (Math.random() > 0.5 ? 1 : -1);
+    this.ball.dy = -parseInt(this.canvas.style.height) / 150;
     this.ball.acceleration = 1;
   },
 
