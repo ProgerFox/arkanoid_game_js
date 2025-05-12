@@ -1,11 +1,17 @@
+import { EndgameWindow } from "./endgame_window.js";
 import { Menu } from "./menu.js";
 
-export const GameField = {
+export const Game = {
+  // canvas settings
   canvas: null,
   ctx: null,
+
+  // game sittings
   game_loop: null,
-  gameIsActive: false,
-  score_counter: document.getElementById('score_counter'),
+  game_state: "inactive", // inactive, active, paused
+
+  // inner settings
+  score_counter: document.getElementById("score_counter"),
   score: 0,
 
   platform: {
@@ -13,7 +19,7 @@ export const GameField = {
     height: 15,
     x: 0,
     y: 0,
-    speed: 8,
+    speed: 6,
     dx: 0,
   },
 
@@ -38,6 +44,7 @@ export const GameField = {
     offsetLeft: 35,
     colors: ["#ff2c3b", "#ff5722", "#ff9800", "#ffeb3b", "#4caf50", "#2196f3"],
     array: [],
+    remains: 0,
   },
 
   // setup
@@ -76,7 +83,7 @@ export const GameField = {
     this.ctx.fill();
 
     this.ctx.strokeStyle = "white";
-    this.ctx.lineWidth = 1;
+    this.ctx.lineWidth = 2;
     this.ctx.stroke();
     this.ctx.closePath();
   },
@@ -90,9 +97,9 @@ export const GameField = {
     );
 
     document.addEventListener("keydown", (e) => {
-      if (e.key === "Right" || e.key === "ArrowRight") {
+      if (e.key === "Right" || e.key === "ArrowRight" || e.key === "d") {
         this.platform.dx = this.platform.speed;
-      } else if (e.key === "Left" || e.key === "ArrowLeft") {
+      } else if (e.key === "Left" || e.key === "ArrowLeft" || e.key === "a") {
         this.platform.dx = -this.platform.speed;
       }
     });
@@ -102,7 +109,9 @@ export const GameField = {
         e.key === "Right" ||
         e.key === "ArrowRight" ||
         e.key === "Left" ||
-        e.key === "ArrowLeft"
+        e.key === "ArrowLeft" ||
+        e.key === "a" ||
+        e.key === "d"
       ) {
         this.platform.dx = 0;
       }
@@ -170,7 +179,7 @@ export const GameField = {
       this.ball.y + this.ball.radius >
       this.canvas.height / (window.devicePixelRatio || 1)
     ) {
-      this.game_stop();
+      this.gameEnd();
     }
   },
 
@@ -187,7 +196,7 @@ export const GameField = {
         (this.ball.x - (this.platform.x + this.platform.width / 2)) /
         (this.platform.width / 2);
       this.ball.dx = hitPosition * this.ball.speed;
-      this.ball.acceleration += 0.1;
+      this.ball.acceleration += 0.2;
     }
   },
 
@@ -197,7 +206,7 @@ export const GameField = {
     this.bricks.array = [];
     for (let cols = 0; cols < this.bricks.cols; cols++) {
       for (let rows = 0; rows < this.bricks.rows; rows++) {
-        if (Math.random() < 0.7) {
+        if (Math.random() < 0.4) {
           const brick = {
             x:
               cols * (this.bricks.width + this.bricks.padding) +
@@ -217,6 +226,7 @@ export const GameField = {
         }
       }
     }
+    this.bricks.remains = this.bricks.array.length;
   },
 
   drawBricks() {
@@ -257,7 +267,9 @@ export const GameField = {
           this.ball.dy = -this.ball.dy;
           brick.visible = false;
           this.score += 10;
-          this.score_counter.innerHTML = `Score: ${this.score}`;
+          this.score_counter.innerHTML = this.score;
+
+          this.bricks.remains -= 1;
         }
       }
     });
@@ -265,7 +277,7 @@ export const GameField = {
 
   // game_loop
 
-  init_game_loop() {
+  initGameLoop() {
     const gameFrame = () => {
       this.drawBackground();
 
@@ -277,7 +289,11 @@ export const GameField = {
       this.drawBall();
       this.drawBricks();
 
-      if (this.gameIsActive) {
+      if (this.bricks.remains === 0) {
+        this.initBricks();
+      }
+
+      if (this.game_state === "active") {
         this.game_loop = requestAnimationFrame(gameFrame);
       }
     };
@@ -287,36 +303,41 @@ export const GameField = {
 
   //
 
-  game_init() {
+  initField() {
     this.initCanvas();
     this.initPlatform();
     this.initBall();
     this.initBricks();
   },
 
-  game_start() {
-    if (!this.game_loop) {
+  gameRestart() {
+    this.game_state = "active";
+    this.score = 0;
+    this.score_counter.innerHTML = this.score;
+    this.initField();
+    this.initGameLoop();
+  },
 
-      this.score = 0;
-      this.score_counter.innerHTML = `Score: ${this.score}`;
-
-      this.initPlatform();
-      this.initBall();
-      this.initBricks();
-
-      this.gameIsActive = true;
-      this.init_game_loop();
+  gamePause() {
+    if (this.game_state === "active") {
+      this.game_state = "paused";
+      cancelAnimationFrame(this.game_loop);
+    } else if (this.game_state === "paused") {
+      this.game_state = "active";
+      this.initGameLoop();
     }
   },
 
-  game_stop() {
-    if (this.game_loop) {
+  gameEnd() {
+    if (this.game_state == "active") {
+      this.game_state = "inactive";
       cancelAnimationFrame(this.game_loop);
-      this.gameIsActive = false;
       this.game_loop = null;
 
-      Menu.ToggleMenuVisibility();
-      Menu.ResetMenuBtns();
+      setTimeout(() => {
+        Menu.ResetMenuBtns();
+        EndgameWindow.showResults();
+      }, 100);
     }
   },
 };
