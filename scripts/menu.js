@@ -1,4 +1,5 @@
 import { Game } from "./game.js";
+import { AboutWindow } from "./about_window.js";
 
 export const Menu = {
   open_menu_btn: document.getElementById("open_menu_btn"),
@@ -20,7 +21,7 @@ export const Menu = {
     this.menu_stop_btn.style.display = "none";
   },
 
-  initMenu() {
+  init() {
     // menu setup
     this.open_menu_btn.addEventListener("click", () => {
       this.ToggleVisibility();
@@ -51,7 +52,7 @@ export const Menu = {
     // menu actions
     this.menu_about_btn.addEventListener("click", () => {
       this.ToggleVisibility();
-      // window.open("https://en.wikipedia.org/wiki/Arkanoid");
+      AboutWindow.ToggleVisibility();
     });
 
     this.menu_play_btn.addEventListener("click", () => {

@@ -303,7 +303,7 @@ export const Game = {
 
   //
 
-  initField() {
+  init() {
     this.initCanvas();
     this.initPlatform();
     this.initBall();
@@ -314,7 +314,7 @@ export const Game = {
     this.game_state = "active";
     this.score = 0;
     this.score_counter.innerHTML = this.score;
-    this.initField();
+    this.init();
     this.initGameLoop();
   },
 

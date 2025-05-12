@@ -13,7 +13,7 @@ export const SaveResultWindow = {
     this.save_results_window.style.display = this.ShowWindow ? "flex": "none";
   },
 
-  initSaveResultWindow() {
+  init() {
     this.save_results_window_close_btn.addEventListener("click", () => {
       this.ToggleVisibility();
     });

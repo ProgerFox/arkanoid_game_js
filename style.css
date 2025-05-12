@@ -3,6 +3,11 @@
   src: url("assets/fonts/AtariClassic-gry3.ttf");
 }
 
+@font-face {
+  font-family: 'Thintel';
+  src: url("assets/fonts/Thintel.ttf");
+}
+
 body {
   user-select: none;
 }
@@ -233,4 +238,15 @@ main {
   display: flex;
   justify-content: center;
   width: 100%;
+}
+
+#about_window {
+  display: none;
+}
+
+.about_text {
+  font-family: 'Thintel';
+  color: #ff2c3b;
+  -webkit-text-stroke: 1px black;
+  font-size: 31px;
 }

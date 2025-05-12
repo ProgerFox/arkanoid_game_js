@@ -19,11 +19,11 @@ export const EndgameWindow = {
     this.endgame_score_counter.innerHTML = Game.score;
   },
 
-  initEndGameWindow() {
+  init() {
     this.endgame_popup.style.display = "none";
 
     this.endgame_menu_btn.addEventListener("click", () => {
-      Menu.ToggleMenuVisibility();
+      Menu.ToggleVisibility();
       this.ToggleVisibility();
     });
 

@@ -1,2 +1,7 @@
-﻿license: Freeware
+﻿font: Atari Classic Font
+license: Freeware
 link: https://www.fontspace.com/atari-classic-font-f30342
+
+font: Thintel
+license: Creative Commons Attribution Share Alike
+link: https://old.fonts-online.ru/font/Thintel
